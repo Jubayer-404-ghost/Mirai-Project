@@ -1,0 +1,4 @@
+{
+  "greeting": "Hello! How can I assist you today?",
+  "helpMessage": "Here are the available commands: \n!help - Displays this message\n!hello - Sends a greeting message"
+}
