@@ -1,0 +1,4 @@
+{
+  "greeting": "Chào! Tôi có thể giúp gì cho bạn?",
+  "helpMessage": "Dưới đây là các lệnh có sẵn: \n!help - Hiển thị tin nhắn này\n!hello - Gửi tin nhắn chào mừng"
+}
