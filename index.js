@@ -1,28 +1,42 @@
-const { initializeBot } = require('./includes/api');
-const { handleEvent } = require('./includes/eventHandler');
-const { loadCommands } = require('./commandHandler');
+const loginBot = require('./login');
+const { connectDatabase } = require('./database/database');
+const handleCommand = require('./commandHandler');
+const handleEvent = require('./eventHandler');
 const config = require('./config.json');
-const { MESSAGES } = require('./includes/constants');
-const logMessage = require('./utils/logger');
+const loadCommands = require('./scripts/loader/loadCommands');
+const loadEvents = require('./scripts/loader/loadEvents');
 
-const commands = loadCommands();
+connectDatabase();
 
-initializeBot((err, api) => {
-  if (err) {
-    logMessage(`[ERROR] Failed to initialize bot: ${err}`);
-    return console.error("Failed to initialize bot:", err);
-  }
+loginBot((api) => {
+  global.api = api;
+  global.config = config;
+  global.commands = new Map();
+  global.events = new Map();
 
-  logMessage("[INFO] Bot initialized successfully.");
+  api.setOptions(config.FCAOption || {});
+
+  console.log(`${config.BOTNAME || 'MiraiBot'} is now active.`);
+
+  loadCommands(global.commands);
+  loadEvents(global.events);
+
+  initializeCache();
 
   api.listenMqtt((err, event) => {
     if (err) {
-      logMessage(`[ERROR] Error listening to events: ${err}`);
-      return console.error("Error listening to events:", err);
+      console.error('Event listener error:', err);
+      return;
     }
 
-    logMessage(`[INFO] Incoming event: ${JSON.stringify(event)}`);
-
-    handleEvent(api, event, commands);
+    if (event.type === 'message' || event.type === 'message_reply') {
+      handleCommand({ api, event });
+    } else {
+      handleEvent({ api, event });
+    }
   });
 });
+
+function initializeCache() {
+  console.log('Cache initialization complete.');
+}
