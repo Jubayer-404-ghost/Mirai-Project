@@ -1,4 +1,34 @@
 {
-  "greeting": "Hello! How can I assist you today?",
-  "helpMessage": "Here are the available commands: \n!help - Displays this message\n!hello - Sends a greeting message"
+  "greetings": {
+    "hello": "Hello!",
+    "good_morning": "Good morning!",
+    "good_night": "Good night!"
+  },
+  "help": {
+    "title": "Help Commands",
+    "description": "Here are the available commands for the bot.",
+    "commands": {
+      "hello": "Greets you with a friendly message.",
+      "help": "Shows the help menu with all available commands."
+    }
+  },
+  "error": {
+    "command_not_found": "Sorry, I didn't understand that command.",
+    "invalid_input": "Invalid input, please try again.",
+    "missing_argument": "Missing argument for the command. Please provide the necessary information."
+  },
+  "admin": {
+    "admin_only": "This command is only available for admins.",
+    "access_granted": "Access granted! You are now an admin."
+  },
+  "bot": {
+    "startup_message": "Bot is now online and ready to serve.",
+    "shutdown_message": "Bot is shutting down... Goodbye!"
+  },
+  "database": {
+    "connection_success": "Database connected successfully.",
+    "connection_error": "Failed to connect to the database.",
+    "data_saved": "Data saved successfully.",
+    "data_error": "Error saving data."
+  }
 }
